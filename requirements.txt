@@ -65,7 +65,6 @@ pydantic_core
 pyfiglet
 pynvim
 python-dateutil
-python-jos
 pytz
 pyzbar
 qrcode
