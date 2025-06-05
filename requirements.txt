@@ -41,7 +41,7 @@ greenlet
 h11
 httpcore
 httpx
-idna==
+idna
 ipinfo
 itsdangerous
 Jinja2
