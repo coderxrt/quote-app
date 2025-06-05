@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User MANAGEMENT</title>
+    <style>
+<style>
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+    color: #222;
+}
+a {
+    color: #1976d2;
+    text-decoration: none;
+    font-weight: 500;
+    margin-right: 16px;
+}
+a:hover {
+    text-decoration: underline;
+}
+.status-message {
+    background: #e3f7e3;
+    color: #256029;
+    padding: 10px;
+    margin: 18px auto 12px auto;
+    border-radius: 4px;
+    max-width: 500px;
+}
+.error-message {
+    background: #fdecea;
+    color: #b71c1c;
+    padding: 10px;
+    margin: 18px auto 12px auto;
+    border-radius: 4px;
+    max-width: 500px;
+}
+form {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 30px auto 24px auto;
+    max-width: 500px;
+    background: #fff;
+    padding: 16px 18px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(60,72,88,0.08);
+}
+input[list] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex: 1;
+    font-size: 1em;
+}
+form a {
+    background: #1976d2;
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 4px;
+    font-size: 1em;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+form a:hover {
+    background: #165a9c;
+}
+.user-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(60,72,88,0.08);
+    padding: 18px 16px;
+    margin: 18px auto;
+    max-width: 500px;
+}
+.user-card strong {
+    display: inline-block;
+    width: 100px;
+    color: #555;
+}
+.user-card p {
+    display: inline-block;
+    margin: 0 0 8px 0;
+    font-weight: bold;
+}
+.user-card a {
+    margin-right: 14px;
+}
+@media (max-width: 600px) {
+    form, .user-card {
+        max-width: 95%;
+        padding: 12px 8px;
+    }
+    .user-card strong {
+        width: 80px;
+    }
+}
+</style>
+    </style>
+</head>
+<body>
+  {% if not users %}
+    <p>No users Available.</p>
+  {% endif %}
+    {% if status %}
+    <div class="status-message">{{status}}</div>
+  {% endif %}
+  {% if error %}
+    <div class="error-message">{{error}}</div>
+  {% endif %}
+  <a href="{{url_for('admin_home')}}">back</a>
+    {% if users %}
+      <form method="get" action="{{url_for('search_user')}}">
+      <input list="usernames" placeholder="Enter a user to search" name="usernames" id="usernames">
+      {% for user in users %}
+        <datalist id="usernames">
+        <option value="{{user.username}}">{{user.username}}</option>
+      </datalist>
+      {% endfor %}
+        <button type="submit">Search</button>
+        </form>
+      {% for user in users %}
+        <div class="user-card">
+          <strong>Name:</strong><p>{{user.username}}</p>
+          <strong>Password:</strong><p>{{user.password}}</p>
+          <a href="{{url_for('delete_user', username=user.username)}}" style="color:red">Delete this user </a>
+          <a href="{{url_for('make_admin', username =user.username)}}">Make admin </a>
+        </div>
+     {% endfor %}
+    {% endif %}
+    
+</body>
+</html>

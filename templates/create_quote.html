@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Quote</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+}
+
+.container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+        h1 {
+            text-align: center;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: #007bff;
+}
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            resize: none;
+}
+
+        textarea:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+}
+
+.quote-btn {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            background: #007bff;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            transition: background 0.3s;
+}
+
+.quote-btn:hover {
+            background: #0056b3;
+}
+
+.message {
+            text-align: center;
+            font-size: 1em;
+            margin-bottom: 15px;
+            color: green;
+}
+
+.error {
+            text-align: center;
+            font-size: 1em;
+            margin-bottom: 15px;
+            color: red;
+}
+
+        a {
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #007bff;
+}
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 0.9em;
+            color: #555;
+}
+    </style>
+</head>
+<body>
+
+{% if status %}
+    <div class="message">{{status}}</div>
+{% endif %}
+{% if error %}
+    <div class="error">{{error}}</div>
+{% endif %}
+
+<div class="container">
+    <h1>Create a Quote</h1>
+    <form method="post" action="{{url_for('create_quote')}}">
+        <a href="{{url_for('generate_ai_quote')}}">Generate AI Quote</a><br>
+        {% if generated_ai_quote %}
+            <textarea id="quote_message" placeholder="Write a quote" name="quote">{{generated_ai_quote}}</textarea>
+        {% else %}
+            <textarea id="quote_message" placeholder="Write a quote" name="quote"></textarea>
+        {% endif %}
+        <button class="quote-btn" id="create_quote_btn" type="submit">Send</button>
+    </form>
+</div>
+
+<a href="{{url_for('home_quotes')}}">Back to Quotes</a>
+
+<footer>&copy; 2025 Quote Generator - <a href="{{url_for('contact_template')}}">Report an issue</a></footer>
+
+</body>
+</html>

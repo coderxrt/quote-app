@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quotes - Contact Us</title>
+  <style>
+    body {
+      background: #f8fafc;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      text-align: center;
+      font-size: 1.6em;
+      font-weight: bold;
+      padding: 24px 0 10px 0;
+      color: #4f8cff;
+      letter-spacing: 1px;
+    }
+    form {
+      max-width: 400px;
+      margin: 30px auto 20px auto;
+      padding: 24px;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.7s ease forwards;
+    }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .status-message, .error-message {
+      text-align: center;
+      margin-top: 10px;
+      opacity: 0;
+      animation: bounceIn 0.7s 0.2s forwards;
+    }
+    .status-message {
+      color: green;
+    }
+    .error-message {
+      color: red;
+    }
+    @keyframes bounceIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.7);
+      }
+      60% {
+        opacity: 1;
+        transform: scale(1.1);
+      }
+      80% {
+        transform: scale(0.95);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    label {
+      font-weight: bold;
+      margin-top: 12px;
+      display: block;
+      color: #333;
+    }
+    input, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      margin-bottom: 16px;
+      border: 1px solid #d0d7de;
+      border-radius: 6px;
+      font-size: 1em;
+      box-sizing: border-box;
+    }
+    button {
+      background: #4f8cff;
+      color: #fff;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+      animation: none;
+    }
+    button:hover {
+      background: #2566d4;
+      animation: pulse 0.4s;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.06);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    a {
+      display: block;
+      text-align: center;
+      margin: 10px auto;
+      color: #4f8cff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    footer {
+      text-align: center;
+      color: #aaa;
+      padding: 16px 0 10px 0;
+      font-size: 0.95em;
+    }
+    @media (max-width: 500px) {
+      form {
+        padding: 12px;
+        max-width: 98vw;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    Complain or suggestions
+  </header>
+  {% if status %}
+    <div class="status-message">{{status}}</div>
+  {% endif %}
+  {% if error %}
+    <div class="error-message">{{error}}</div>
+  {% endif %}
+  <form method="post" action="{{url_for('contact_form')}}">
+    <label>Your name</label>
+    {% if username %}
+      <input list="user" type="text" name="name" placeholder="your name" required>
+      <datalist id="user">
+        <option value="{{username}}">Me</option>
+      </datalist>
+    {% else %}
+      <input type="text" placeholder="your name" name="name" required>
+    {% endif %}
+    <label>Number</label>
+    <input type="number" placeholder="Your phone number " namerequired required>
+    <label>Email</label>
+    <input type="email" placeholder="Your email" name="email" required>
+    <label>Complain or improvements</label>
+    <textarea placeholder="your complain or suggestions.." name="issue" required></textarea>
+    <button type="submit">Submit</button>
+  </form>
+  <a href="{{url_for('home_quotes')}}">Back</a>
+  <footer>
+    &copy; 2025 Quotes App - Reach out to us on Whatsapp
+    <a href="https://wa.me/2347034564078">📞</a>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotes Home</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+}
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fff;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+        header h3 {
+            margin: 0;
+            color: #333;
+}
+
+        header a {
+            text-decoration: none;
+            font-weight: bold;
+            color: #d9534f;
+}
+
+.container {
+            max-width: 700px;
+            margin: 80px auto 20px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.quote {
+            padding: 15px;
+            border-left: 4px solid #007bff;
+            margin-bottom: 15px;
+            background: #f9f9f9;
+            border-radius: 6px;
+}
+
+.quote-owner {
+            font-size: 0.9em;
+            color: #555;
+            text-align: right;
+}
+
+        button {
+            padding: 8px 12px;
+            border: none;
+            cursor: pointer;
+            background: #007bff;
+            color: white;
+            border-radius: 5px;
+            font-size: 0.9em;
+            transition: background 0.3s;
+}
+
+        button:hover {
+            background: #0056b3;
+}
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 0.9em;
+            color: #555;
+}
+    </style>
+</head>
+<body>
+
+<header>
+     {% if username %} 
+     <h1>Hi {{username}}!</h1><br>
+    <a href="{{ url_for('logout')}}">Log out</a>
+</header>
+     {% else %}
+ <header>
+     <h1>Hi guest</h1>
+     <br>
+     <strong style="color:blue;">You cannot currently create quotes, <a href="{{url_for('login')}}" style="text-decoration :none;">Login</a></strong>
+</header>
+     {% endif %}
+
+<div class="container">
+    <h2>Inspiring Quotes</h2>
+
+    {% if quotes %}
+        {% for quote in quotes %}
+            <div class="quote">
+                <button class="btn-class" style="float:right">Copy</button><br>
+                <p>{{ quote.quote_description}}</p>
+                <p class="quote-owner"><strong>~ {{ quote.quote_owner}}</strong></p>
+            </div>
+        {% endfor %}
+    {% else %}
+    {% if username %}
+        <p>No quotes available. Add your favorite quotes
+            <a href="{{ url_for('create_post')}}">here</a>.
+        </p>
+     {% else %}
+       <p>No quotes available. Add your favorite quotes
+            <a href="{{ url_for('login')}}">Login to create post</a>.
+        </p>
+    {% endif %}
+   {% endif %}
+    {% if username %}
+    <a href="{{url_for('create_post')}}" style="display: block; text-align: center; margin-top: 15px;">Add Quote</a>
+   {% else %}
+    <a href="{{url_for('login')}}" style="display: block; text-align: center; margin-top: 15px;">Login to add quotes</a>
+    {% endif %}
+</div>
+
+<script>
+    document.querySelectorAll(".btn-class").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const QuoteDiv = btn.parentElement;
+            const textToCopy = QuoteDiv.innerText.trim();
+            navigator.clipboard.writeText(textToCopy)
+.then(() => {
+                btn.innerText = "Copied!";
+                setTimeout(() => { btn.innerText = "Copy";}, 2000);
+})
+.catch(() => alert("Failed to copy!"));
+});
+});
+</script>
+
+<footer>&copy; 2025 Quotes Generator - <a href="{{url_for('contact_template')}}">Report an issue</a></footer>
+
+</body>
+</html>

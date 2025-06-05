@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User feebacks</title>
+</head>
+<body>
+  {% if data %}
+    {% for username, details in data.items() %}
+      <strong>Username:</strong><p>{{username}}</p>
+      <strong>Name:</strong><p>{{details["name"]}}</p>
+      <strong>Phone number:</strong><p>{{details["phone"]}}</p>
+      <strong>Email :</strong><p>{{details["email"]}}</p>
+      <strong>Feedback :</strong><b>{{details["issue"]}}</b>
+      <br>
+      <strong>Date of feedback:</strong><p>{{details["data"]}}</p>
+      <hr>
+    {% endfor %}
+  {% else %}
+   <p>No feedbacks available yet.</p>
+      <a href="{{url_for('admin_home')}}">Back</a>
+  {% endif %}
+</body>
+</html>

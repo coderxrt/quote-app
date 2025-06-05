@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quotes App | Admin Dashboard</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" 
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+
+<style>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.nav{
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    left: -100%;
+    padding: 10px;
+    background: #ddd;
+    width: 260px;
+    height: 100vh;
+    transition: .4s all ease-in;
+}
+.nav.add{
+    left: 0;
+    transition: .4s all ease-in;
+}
+.navbar-title{
+    font-size: 25px;
+}
+.navbar a{
+    color: #000;
+    margin: 30px;
+    font-size: 20px;
+    display: block;
+}
+.menu-bar{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px;
+    font-size: 25px;
+    cursor: pointer;
+}
+button{
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 6px;
+    background: #216888;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+.admindashbord{
+    width: 100%;
+    height: 100vh;
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.admindashbord .admindashbord-box{
+    background: #ddd;
+    width: 300px;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 0 .2rem .2rem rgba(0,0,0,0.1);
+}
+.admindashbord-box h4{
+    margin: 10px;
+    padding: 10px;
+    font-size: 1.5rem;
+}
+.status-message{
+    margin: 10px;
+    padding: 10px;
+}
+.error-message{
+    margin: 10px;
+    padding: 10px;
+}
+.statistics{
+    margin: 10px;
+    padding: 10px;
+}
+
+
+@media(max-width: 360px){
+    .admindashbord{
+        width: 100%;
+        height: 100vh;
+    }
+}
+</style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="nav">
+            <span class="navbar-title">Quotes Admin</span>
+            <ul class="navbar"  style="display :none;" id="g">
+                <a href="/all_users">View all users</a>
+                <a href="/all_quotes">View all quotes</a>
+                <a href="/post_announcement">Post announcement</a>
+                <a href="{{url_for('feedback')}}">User feedbacks</a>
+                <a href="{{url_for('admin_logout')}}">Log out</a>
+            </ul>
+             <button onclick="let div= document.getElementById('g'); div.style.display=div.style.display==='none'? 'block':'none'" style="float:right;">Menu</button>
+
+        </div>
+    </header>
+
+
+    <div class="admindashbord">
+
+        <i class="fa fa-bars menu-bar"></i>
+        <div class="admindashbord-box">
+            <h4>Welcome Admin</h4>
+    
+    {% if status %}
+    <div class="status-message">{{status}}</div>
+    {% endif %}
+    {% if error %}
+    <div class="error-message">{{error}}</div>
+    {% endif %}
+    
+    <div class="statistics">
+      <h2 style="text-align:centet;">Statistics:</h2>
+        <div class="users">
+            <strong>Total Users:</strong>
+            <p>{{users | length}}</p>
+        </div>
+        
+        <div class="quotes">
+            <strong>Total quotes :</strong>
+            <p>{{quotes | length}}</p>
+        </div>
+    </div>
+
+        </div>
+    </div>
+
+    <script>
+        let menuBar = document.querySelector('.menu-bar');
+let nav = document.querySelector('.nav');
+
+menuBar.addEventListener('click', () => {
+    nav.classList.toggle('add');
+});
+    </script>
+</body>
+</html>

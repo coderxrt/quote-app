@@ -1,0 +1,78 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+::placeholder{
+    color: #000;
+}
+.quote{
+    width: 100%;
+    height: 100vh;
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.quote .quote-content{
+    background: #ddd;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 0 .2rem .2rem rgba(0,0,0,0.1);
+}
+.quote-content .quote-text h1{
+    margin: 10px;
+    text-align: center;
+}
+.quote-content .quote-content-box{
+    background: 0;
+    padding: 10px;
+}
+.quote-content .quote-content-box .quote-box-form{
+    width: 100%;
+}
+.quote-content .quote-content-box .quote-box-form textarea{
+    width: 530px;
+    height: 140px;
+    margin: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+}
+.quote-content-box .quote-btn{
+    width: 100px;
+    height: 40px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #216888;
+    color: #fff;
+    cursor: pointer;
+}
+
+@media(max-width: 480px){
+    .quote .quote-content{
+        padding: .3rem;
+    }
+    .quote-content .quote-content-box .quote-box-form textarea{
+        width: 400px;
+    }
+}
+@media(max-width: 360px){
+    .quote-content .quote-content-box{
+        padding: 0;
+    }
+    .quote .quote-content{
+        padding: 0;
+    }
+    .quote-content .quote-text h1{
+        font-size: 1.3rem;
+    }
+    .quote-content .quote-content-box .quote-box-form textarea{
+        width: 300px;
+    }
+}
